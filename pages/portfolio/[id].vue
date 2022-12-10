@@ -37,7 +37,6 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router' // workaround bug https://github.com/nuxt/framework/issues/6646
 import { default as works } from '/db/works.js';
 
 const route = useRoute()

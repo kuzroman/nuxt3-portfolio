@@ -30,7 +30,6 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router' // workaround bug https://github.com/nuxt/framework/issues/6646
 
 const store = useStore()
 const route = useRoute()
