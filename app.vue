@@ -100,8 +100,7 @@ const nextRoute = computed(() => {
 </script>
 
 <style lang="scss">
-//@use "element-plus/dist/index.css";
-@import "./assets/styles/index.scss";
+@import "assets/styles/index.scss";
 
 .app {
   height: 100%;

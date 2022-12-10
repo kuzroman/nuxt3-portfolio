@@ -11,6 +11,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  // router: {
+  //   base: '/nuxt3/' // base: '/<repository>/'
+  // }
     // ... other options
   // build: {
   //   transpile: ['element-plus/es'],
@@ -18,9 +21,6 @@ export default defineNuxtConfig({
   // vite: {
   //   plugins: [ElementPlus()],
   // },
-  // router: {
-  //   base: '/nuxt3/' // base: '/<repository>/'
-  // }
   // plugins: {
   //   { src: '~/plugins/lingallery', ssr: false }
   // }
