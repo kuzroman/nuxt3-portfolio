@@ -31,7 +31,6 @@ const setPauseKey = (key) => {
 };
 
 onBeforeMount(() => {
-  console.log(props.isDebug)
   if (props.isDebug) setPauseKey('Space')
 })
 </script>

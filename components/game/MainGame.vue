@@ -42,12 +42,12 @@ const shooter = ref(null);
 
 const isGameFinished = computed(() => store.getters['game/isGameFinished']);
 const isGameReady = computed(() => store.getters['game/isGameReady']);
-const shots = computed(() => store.getters['game/shots']);
-const damage = computed(() => store.getters['game/damage']);
+// const shots = computed(() => store.getters['game/shots']);
+// const damage = computed(() => store.getters['game/damage']);
 
 const setIsGameStart = (bool) => store.commit('game/setIsGameStart', bool);
 const resetStateGame = () => store.commit('game/resetStateGame');
-const setIsGameFinished = (bool) => store.commit('game/setIsGameFinished', bool);
+// const setIsGameFinished = (bool) => store.commit('game/setIsGameFinished', bool);
 const increaseShoots = () => store.commit('game/increaseShoots');
 const increaseDamage = () => store.commit('game/increaseDamage');
 const resetStateLeaderBoard = () => store.commit('leaderBoard/resetStateLeaderBoard');

@@ -7,8 +7,6 @@
 </template>
 
 <script setup>
-// import UIComeBack from '~/components/UI/ComeBack.vue'
-const route = useRoute();
 const router = useRouter();
 
 const isPortfolioIDPage = computed(() => {

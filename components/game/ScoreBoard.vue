@@ -26,11 +26,11 @@
       </div>
     </DashedList>
 
-    <UIButton
-        text="show leaderboard"
-        class="btn-leaderboard"
-        @click.native="openLeaderBoard"
-    />
+<!--    <UIButton-->
+<!--        text="show leaderboard"-->
+<!--        class="btn-leaderboard"-->
+<!--        @click.native="openLeaderBoard"-->
+<!--    />-->
   </div>
 </template>
 

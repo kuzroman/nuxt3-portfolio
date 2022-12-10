@@ -1,7 +1,3 @@
-// import router from '~/router'
-// import {useRouter} from "nuxt/app";
-// const router = useRouter();
-
 export default {
   namespaced: true,
   state: {
@@ -11,7 +7,8 @@ export default {
     isActiveBurger: false,
     transitionDirection: '', // to-left || to-right
     isPageLoaderHide: false, // useful in develop mode
-    navigation: []
+    navigation: [],
+    router: null,
   },
   getters: {
     isSiteFirstLoaded: (state) => state.isSiteFirstLoaded,
@@ -32,22 +29,23 @@ export default {
     setHidePageControl(state, bool) {
       state.hidePageControl = bool
     },
-    setDirection(state, route) {
-      // const { routes } = router?.options
-      // const currentIndex = routes.findIndex((x) => x.name === router.currentRoute.value.name)
-      // const goToIndex = routes.findIndex((x) => x.name === route.name)
-      state.transitionDirection = 'to-right' // currentIndex < goToIndex ? 'to-right' : 'to-left'
+    setDirection(state, route, direction) {
+      if (direction) {
+        state.transitionDirection = direction;
+        return
+      }
+      const { routes } = state.router?.options
+      const currentIndex = routes.findIndex((x) => x.name === state.router.currentRoute.name)
+      const goToIndex = routes.findIndex((x) => x.name === route.name)
+      state.transitionDirection = currentIndex < goToIndex ? 'to-right' : 'to-left'
     },
-    toPage(store, { route, direction }) {
+    toPage(state, { route, direction }) {
       this.commit('app/setIsMenuNavigation', false)
       this.commit('app/setHidePageControl', true)
-      this.commit('app/setDirection',route)
-      
-      console.log('route',route.name);
+      this.commit('app/setDirection', route, direction)
 
-      // setTimeout(() => router.push(route), 600)
-      // setTimeout(() => navigateTo('/'+route.name), 600)
       setTimeout(() => navigateTo(route), 600)
+      // setTimeout(() => state.router.push(route), 600)
       setTimeout(() => this.commit('app/setHidePageControl', false), 900)
     },
     setIsPageLoaderHide(state, bool) {
@@ -57,5 +55,8 @@ export default {
       const orderList = ['index','portfolio','about','contacts', 'matter']
       state.navigation = orderList.map(name => arr.find(x=>x.name === name))
     },
+    setRoutes(state, routes) {
+      state.router = routes
+    }
   },
 }

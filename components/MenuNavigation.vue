@@ -14,12 +14,18 @@
 <script setup>
 import { useStore } from 'vuex'
 
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
 const store = useStore();
 const isMenuNavigationOpened = computed(() => store.getters['app/isMenuNavigationOpened']);
 const navigation = computed(() => store.getters['app/navigation']);
 // const isSiteFirstLoaded = computed(() => store.getters['app/isSiteFirstLoaded']);
 
-const toPage = (route) => store.commit('app/toPage', route);
+const toPage = (route) => {
+  console.log("route" , route);
+  store.commit('app/toPage', route)
+};
 </script>
 
 <style lang="scss">

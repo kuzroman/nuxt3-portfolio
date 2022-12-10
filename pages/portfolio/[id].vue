@@ -13,6 +13,13 @@
 <!--        </el-carousel-item>-->
 <!--      </el-carousel>-->
 
+      <div class="gallery">
+        <div v-for="(image, i) in images" :key="i">
+          <img :src="image.src" alt="">
+        </div>
+      </div>
+
+
       <div class="description">
         <div v-if="work.link" class="link">
           <a :href="work.link" target="_blank">Watch project</a>
@@ -29,38 +36,33 @@
   </div>
 </template>
 
-<script>
-// import UILink2Move from '~/components/UI/Link2Move.vue'
-import { default as works } from "/db/works.js";
-// import { elCarousel } from 'element-plus'
-// import { ElConfigProvider } from 'element-plus'
+<script setup>
+import { useRoute } from 'vue-router' // workaround bug https://github.com/nuxt/framework/issues/6646
+import { default as works } from '/db/works.js';
 
-export default {
-  name: 'PortfolioId',
-  data() {
-    return {
-      works: works,
-    }
-  },
-  computed: {
-    work() {
-      return this.works[this.$route.params.id];
-    },
-    projectName() {
-      return this.work.imageDirectory
-    },
-    images() {
-      return [...Array(this.work.numberImg)].map((x, i) => ({
-        src: `/img/portfolio/gallery/${this.projectName}/${i+1}.jpg`
-      }))
+const route = useRoute()
 
-    },
-  },
-}
+const work = computed(() => works[route.params.id]);
+const projectName = computed(() => work.value.imageDirectory);
+const images = computed(() => {
+  return [...Array(work.value.numberImg)].map((x, i) => ({
+    src: `/img/portfolio/gallery/${projectName.value}/${i+1}.jpg`
+  }))
+});
 </script>
 
 <style lang="scss">
 @import "../../assets/styles/props";
+
+.gallery {
+  height: 40vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+}
 
 .portfolio-id {
   line-height: 2;

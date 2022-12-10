@@ -4,9 +4,6 @@ import game from './game.js';
 import leaderBoard from './leaderBoard.js';
 import module from './module.js';
 
-// import {useRouter} from "nuxt/app";
-// const router = useRouter();
-
 const store = createStore({
   modules: {
     app,
@@ -24,4 +21,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   //     vuex: store
   //   }
   // }
+  // nuxtApp.hook('app:mounted', (vue) => {
+  //   console.log(vue);
+  //   const route = useRoute();
+  //   console.log(111, route);
+  // })
 });

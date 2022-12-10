@@ -25,36 +25,35 @@
         </a>
       </div>
     </main>
-
   </div>
 </template>
 
 <script setup>
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router' // workaround bug https://github.com/nuxt/framework/issues/6646
 
-const store = useStore();
+const store = useStore()
 const route = useRoute()
 const router = useRouter()
 
+store.commit('app/setRoutes', router)
+
 const transitionDirection = computed(() => store.getters['app/transitionDirection']);
 const isSiteFirstLoaded = computed(() => store.getters['app/isSiteFirstLoaded']);
-const isPageLoaderHide = computed(() => store.getters['app/isPageLoaderHide']);
+// const isPageLoaderHide = computed(() => store.getters['app/isPageLoaderHide']);
 const navigation = computed(() => store.getters['app/navigation']);
 const isGameReady = computed(() => store.getters['game/isGameReady']);
 const routesLen = computed(() => navigation.value.length);
 
 const toPage = (page) => store.commit('app/toPage', page)
-const setNavigation = (navigation) => store.commit('app/setNavigation', navigation)
 
 onMounted(() => {
   let navigation = []
-  router.options.routes.forEach(x => {
-    let split = x.name.split('-id')
-    // console.log('split', split, x);
-    if (split[1] !== '') navigation.push(x)
+  router.options.routes.forEach(route => {
+    if (route.name.indexOf('-id') === -1) navigation.push(route)
   })
   // console.log('navigation', navigation);
-  setNavigation(navigation)
+  store.commit('app/setNavigation', navigation)
 })
 
 const routeStyles = computed(() => {
@@ -66,8 +65,20 @@ const routeStyles = computed(() => {
   return styles
 });
 
-const currentPath = computed(() => route.path);
+const currentPath = computed(() => {
+  console.log(route.path);
+  return route.path
+});
 // console.log('currentPath', currentPath.value);
+
+
+// watch(
+//     () => route.params.id,
+//     async newId => {
+//       console.log('newId', newId);
+//       userData.value = await fetchUser(newId)
+//     }
+// )
 
 const currentRouteIndex = computed(() => {
   // console.log('navigation',navigation.value);
@@ -90,6 +101,7 @@ const nextRoute = computed(() => {
 </script>
 
 <style lang="scss">
+//@use "element-plus/dist/index.css";
 @import "./assets/styles/index.scss";
 
 .app {

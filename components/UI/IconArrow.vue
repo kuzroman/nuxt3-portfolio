@@ -10,36 +10,24 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'UIIconArrow',
-  props: {
-    direction: { type: String, default: 'left' },
-    text: { type: String, default: 'someText' },
-    fadeOut: { type: Boolean, default: false },
-  },
-  data() {
-    return {
-      isActive: false,
-    }
-  },
-  computed: {
-    classList() {
-      let active = { active: this.isActive }
-      let direction = { [this.direction]: true }
-      let fadeOut = { fadeOut: this.fadeOut }
-      return { ...active, ...direction, ...fadeOut }
-    },
-  },
-  methods: {
-    addActive() {
-      this.isActive = true
-    },
-    removeActive() {
-      this.isActive = false
-    },
-  },
-}
+<script setup>
+const props = defineProps({
+  direction: { type: String, default: 'left' },
+  text: { type: String, default: 'someText' },
+  fadeOut: { type: Boolean, default: false },
+})
+
+const isActive = ref(false);
+
+const classList = computed(() => {
+  let active = { active: isActive.value }
+  let direction = { [props.direction]: true }
+  let fadeOut = { fadeOut: props.fadeOut }
+  return { ...active, ...direction, ...fadeOut }
+});
+
+const addActive = () => isActive.value = true;
+const removeActive = () => isActive.value = false;
 </script>
 
 <style lang="scss">

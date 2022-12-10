@@ -7,30 +7,19 @@
   ></UIIconArrow>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-import UIIconArrow from './UI/IconArrow.vue'
+<script setup>
+import { useStore } from 'vuex'
 
-export default {
-  name: 'pageControl',
-  components: { UIIconArrow },
-  props: {
-    direction: { type: String, default: 'right' },
-    text: { type: String, default: 'PageName' },
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    ...mapGetters('app', ['hidePageControl']),
-    ...mapGetters('game', ['isGameReady']),
+const store = useStore()
+const hidePageControl = computed(() => store.getters['app/hidePageControl']);
+const isGameReady = computed(() => store.getters['game/isGameReady']);
+const fadeOut = computed(() => hidePageControl.value || isGameReady.value)
 
-    fadeOut() {
-      return this.hidePageControl || this.isGameReady
-    },
-  },
-  methods: {},
-}
+defineProps({
+  direction: { type: String, default: 'right' },
+  text: { type: String, default: 'PageName' },
+})
+
 </script>
 
 <style lang="scss">
